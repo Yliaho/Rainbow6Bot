@@ -1,0 +1,11 @@
+{
+  "name": "r6bot",
+  "version": "1.0.0",
+  "description": "a r6bot made by /u/SloppyStone",
+  "dependencies": {
+    "cron": "^1.2.1",
+    "dotenv": "^4.0.0",
+    "node": "0.0.0",
+    "snoowrap": "^1.12.0"
+  }
+}
