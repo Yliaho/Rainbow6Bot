@@ -29,26 +29,25 @@ function processPost(postID) {
 
 console.log(`--- target subreddit: r/${config.targetSubreddit} ---`);
 
-function loopAll() {
-    r.getHot('all').map(post => post).then(post => {
-        let count = 0;
-        for (let i in post) {
-          count++;
-          if (post[i].subreddit.display_name == config.targetSubreddit) {
-            console.log(`found post (${post[i].id}) matching target subreddit (r/${config.targetSubreddit})`);
-            if (post[i].link_flair_css_class != config.flair.class) {
-              console.log(`...we haven't seen this before!`);
-              processPost(post[i].id);
-            } else {
-              console.log(`...it's old`);
-            }
-          } else if (count >= post.length && post[i].subreddit.display_name != config.targetSubreddit) {
-            console.log(`no posts found matching target subreddit (r/${config.targetSubreddit})`);
-          }
-        }
-    }); 
-}
 
 module.exports = {
-  loopAll: loopAll
+  loopAll: () => {
+      r.getHot('all').map(post => post).then(post => {
+          let count = 0;
+          for (let i in post) {
+            count++;
+            if (post[i].subreddit.display_name == config.targetSubreddit) {
+              console.log(`found post (${post[i].id}) matching target subreddit (r/${config.targetSubreddit})`);
+              if (post[i].link_flair_css_class != config.flair.class) {
+                console.log(`...we haven't seen this before!`);
+                processPost(post[i].id);
+              } else {
+                console.log(`...it's old`);
+              }
+            } else if (count >= post.length && post[i].subreddit.display_name != config.targetSubreddit) {
+              console.log(`no posts found matching target subreddit (r/${config.targetSubreddit})`);
+            }
+          }
+      }); 
+  }
 };
