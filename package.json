@@ -2,6 +2,9 @@
   "name": "r6bot",
   "version": "1.0.0",
   "description": "a r6bot made by /u/SloppyStone",
+  "scripts": {
+    "start": "node ."
+  },
   "dependencies": {
     "cron": "^1.2.1",
     "dotenv": "^4.0.0",
