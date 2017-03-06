@@ -7,14 +7,6 @@ const config = {
   }
 };
 
-const r = new snoowrap({
-  userAgent:    process.env.SW_USER_AGENT,
-  clientId:     process.env.SW_CLIENT_ID,
-  clientSecret: process.env.SW_SECRET,
-  username:     process.env.SW_USER,
-  password:     process.env.SW_PASSWORD
-});
-
 function processPost(postID) {
   r.getSubmission(postID)
     .assignFlair({text: config.flair.text, cssClass: config.flair.class})
@@ -27,27 +19,25 @@ function processPost(postID) {
         });
 }
 
-console.log(`--- target subreddit: r/${config.targetSubreddit} ---`);
-
-
 module.exports = {
-  loopAll: () => {
+  loopAll: function() {
+      console.log(` TARGET `.bgBlue.black + ` r/${config.targetSubreddit}`.blue + `\n`);
       r.getHot('all').map(post => post).then(post => {
-          let count = 0;
-          for (let i in post) {
-            count++;
-            if (post[i].subreddit.display_name == config.targetSubreddit) {
-              console.log(`found post (${post[i].id}) matching target subreddit (r/${config.targetSubreddit})`);
-              if (post[i].link_flair_css_class != config.flair.class) {
-                console.log(`...we haven't seen this before!`);
-                processPost(post[i].id);
-              } else {
-                console.log(`...it's old`);
-              }
-            } else if (count >= post.length && post[i].subreddit.display_name != config.targetSubreddit) {
-              console.log(`no posts found matching target subreddit (r/${config.targetSubreddit})`);
+        let count = 0;
+        for (let i in post) {
+          count++;
+          if (post[i].subreddit.display_name == config.targetSubreddit) {
+            console.log(` MATCH `.bgGreen.black + ` (${post[i].id}) matching target subreddit (r/${config.targetSubreddit})`);
+            if (post[i].link_flair_css_class != config.flair.class) {
+              console.log(`...we haven't seen this before!`);
+              processPost(post[i].id);
+            } else {
+              console.log(`...it's old`);
             }
+          } else if (count >= post.length && post[i].subreddit.display_name != config.targetSubreddit) {
+            console.log(` NOPE `.bgYellow.black + ` no posts found matching target subreddit (r/${config.targetSubreddit})`.yellow);
           }
+        }
       }); 
   }
 };
