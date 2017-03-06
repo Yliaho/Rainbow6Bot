@@ -3,7 +3,7 @@ fs = require('fs');
 snoowrap = require('snoowrap');
 CronJob = require('cron').CronJob;
 colors = require('colors');
-r6bot = require('./scripts/r6bot.js');
+r6all = require('./scripts/r6bot.js');
 
 global.r = new snoowrap({
   userAgent:    process.env.SW_USER_AGENT,
@@ -18,6 +18,7 @@ r.config({
   debug: false
 });
 
+// do the jobs here
 setInterval(() => {
-  r6bot.loopAll();
+  r6all.loopAll();
 }, 60000);
