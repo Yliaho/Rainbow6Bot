@@ -7,3 +7,4 @@ node_modules/
 !.vscode/extensions.json
 .jshintrc
 .env
+npm-debug.log
