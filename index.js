@@ -1,11 +1,9 @@
-require('dotenv').config({path: './credentials/.env'});
+dotenv = require('dotenv').config({path: './credentials/.env'});
 fs = require('fs');
 snoowrap = require('snoowrap');
 CronJob = require('cron').CronJob;
 colors = require('colors');
-notifier = require('node-notifier');
 r6bot = require('./scripts/r6bot.js');
-path = require('path');
 
 global.r = new snoowrap({
   userAgent:    process.env.SW_USER_AGENT,
