@@ -13,4 +13,11 @@ global.r = new snoowrap({
   password:     process.env.SW_PASSWORD
 });
 
-r6bot.loopAll();
+r.config({
+  requestDelay: 1000,
+  debug: false
+});
+
+setInterval(() => {
+  r6bot.loopAll();
+}, 60000);

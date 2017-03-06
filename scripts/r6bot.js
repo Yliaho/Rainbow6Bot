@@ -14,7 +14,7 @@ function processPost(postID) {
           r.getComment(comment)
             .distinguish({status: true, sticky: true}).then(() => {
               console.log(`...(${postID}) flair set to .linkflair-${config.flair.class} 
-              ...(text: "${config.flair.text}")`);
+              ...(text: "${config.flair.text}")\n`.green);
             });
         });
 }
@@ -27,15 +27,15 @@ module.exports = {
         for (let i in post) {
           count++;
           if (post[i].subreddit.display_name == config.targetSubreddit) {
-            console.log(` MATCH `.bgGreen.black + ` (${post[i].id}) matching target subreddit (r/${config.targetSubreddit})`);
+            console.log(` MATCH `.bgGreen.black + ` (${post[i].id}) matching target subreddit (r/${config.targetSubreddit})`.green);
             if (post[i].link_flair_css_class != config.flair.class) {
-              console.log(`...we haven't seen this before!`);
+              console.log(`...we haven't seen this before!`.green);
               processPost(post[i].id);
             } else {
-              console.log(`...it's old`);
+              console.log(`...it's old\n`.yellow);
             }
           } else if (count >= post.length && post[i].subreddit.display_name != config.targetSubreddit) {
-            console.log(` NOPE `.bgYellow.black + ` no posts found matching target subreddit (r/${config.targetSubreddit})`.yellow);
+            console.log(` NOPE `.bgYellow.black + ` no posts found matching target subreddit (r/${config.targetSubreddit})`.yellow + `\n`);
           }
         }
       }); 
