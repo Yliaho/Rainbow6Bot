@@ -16,7 +16,7 @@ function processPost(postID) {
               console.log(`...(${postID}) flair set to .linkflair-${config.flair.class} 
               ...(text: "${config.flair.text}")\n`.green);
             });
-        });
+      });
 }
 
 module.exports = {
