@@ -1,3 +1,6 @@
+const fs = require('fs');
+const colors = require('colors');
+
 const config = {
   targetSubreddit: 'rainbow6',
   messageText: fs.readFileSync('./plaintext/message.txt').toString(),
@@ -20,6 +23,7 @@ function processPost(postID) {
 }
 
 module.exports = {
+  snoowrap: snoowrap,
   loopAll: function() {
       console.log(` TARGET `.bgBlue.black + ` r/${config.targetSubreddit}`.blue + `\n`);
       r.getHot('all').map(post => post).then(post => {

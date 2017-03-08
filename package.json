@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "a r6bot made by /u/SloppyStone",
   "scripts": {
-    "start": "node ."
+    "start": "node -r dotenv/config index.js dotenv_config_path=./credentials/.env",
+    "startLinux": "nodejs -r dotenv/config index.js dotenv_config_path=./credentials/.env"
   },
   "dependencies": {
     "colors": "^1.1.2",
     "cron": "^1.2.1",
+    "discord.js": "^11.0.0",
     "dotenv": "^4.0.0",
     "snoowrap": "^1.12.0"
   }
