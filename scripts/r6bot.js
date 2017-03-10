@@ -16,8 +16,10 @@ function processPost(postID) {
       .reply(config.messageText).then(comment => {
           r.getComment(comment)
             .distinguish({status: true, sticky: true}).then(() => {
-              console.log(`...(${postID}) flair set to .linkflair-${config.flair.class} 
-              ...(text: "${config.flair.text}")\n`.green);
+              console.log(
+              `...(${postID}) flair set to .linkflair-${config.flair.class}\n`.green +
+              `...(text: "${config.flair.text}")\n`.green
+              );
             });
       });
 }
