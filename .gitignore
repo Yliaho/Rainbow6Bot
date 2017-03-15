@@ -9,3 +9,4 @@ node_modules/
 .env
 credentials/*
 npm-debug.log
+logs.json
