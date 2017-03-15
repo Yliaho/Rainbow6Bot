@@ -29,7 +29,7 @@ function processPost(postID) {
 module.exports = {
   loopAll() {
     console.log(` TARGET `.bgBlue.black + ` r/${config.targetSubreddit}`.blue);
-    r.getHot('all', { limit: config.queryLimit}).map(post => post).then(post => {
+    r.getHot('all', { limit: config.queryLimit}).then(post => {
       console.log(`...current r/all top post: `.blue + `${post[0].title}`);
       let count = 0;
       for (let i in post) {

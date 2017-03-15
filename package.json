@@ -5,7 +5,6 @@
   "scripts": {
     "start": "node -r dotenv/config index.js dotenv_config_path=./credentials/.env",
     "startLinux": "nodejs -r dotenv/config index.js dotenv_config_path=./credentials/.env",
-    "sync": "rsync -a --delete --exclude=./node_modules . joonasyliaho@104.196.175.213:sync"
   },
   "dependencies": {
     "colors": "^1.1.2",
@@ -13,5 +12,3 @@
     "snoowrap": "^1.12.0"
   }
 }
-
-

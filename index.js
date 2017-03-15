@@ -12,9 +12,9 @@ r = new snoowrap({
 
 r.config({
   requestDelay: 1000,
-  debug: false
+  // debug: false
 });
-
+r6all.loopAll();
 setInterval(() => {
   r6all.loopAll();
 }, 60000);
