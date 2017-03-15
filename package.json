@@ -5,12 +5,13 @@
   "scripts": {
     "start": "node -r dotenv/config index.js dotenv_config_path=./credentials/.env",
     "startLinux": "nodejs -r dotenv/config index.js dotenv_config_path=./credentials/.env",
+    "sync": "rsync -a --delete --exclude=./node_modules . joonasyliaho@104.196.175.213:sync"
   },
   "dependencies": {
     "colors": "^1.1.2",
-    "cron": "^1.2.1",
-    "discord.js": "^11.0.0",
     "dotenv": "^4.0.0",
     "snoowrap": "^1.12.0"
   }
 }
+
+

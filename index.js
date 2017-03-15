@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config({ path: './credentials/.env' });
 snoowrap = require('snoowrap');
 const r6all = require('./scripts/r6bot.js');
 
@@ -14,7 +15,6 @@ r.config({
   debug: false
 });
 
-// do the jobs here
 setInterval(() => {
   r6all.loopAll();
 }, 60000);
