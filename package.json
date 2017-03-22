@@ -5,10 +5,14 @@
   "scripts": {
     "start": "node -r dotenv/config index.js dotenv_config_path=./credentials/.env",
     "startLinux": "nodejs -r dotenv/config index.js dotenv_config_path=./credentials/.env",
+    "jobs": "pm2 start ecosystem.config.js",
+    "sync": "rsync -a --delete --exclude=./node_modules . pi@192.168.000.014:sync"
   },
   "dependencies": {
     "colors": "^1.1.2",
     "dotenv": "^4.0.0",
+    "moment-timezone": "^0.5.11",
+    "pouchdb": "^6.1.2",
     "snoowrap": "^1.12.0"
   }
 }

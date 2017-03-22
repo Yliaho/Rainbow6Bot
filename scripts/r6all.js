@@ -1,5 +1,6 @@
 const fs = require('fs');
 const colors = require('colors');
+const trunc = require('./trunc');
 
 const config = {
   targetSubreddit: 'Rainbow6',
@@ -29,8 +30,8 @@ function processPost(postID) {
 module.exports = {
   loopAll() {
     console.log(` TARGET `.bgBlue.black + ` r/${config.targetSubreddit}`.blue);
-    r.getHot('all', { limit: config.queryLimit}).then(post => {
-      console.log(`...current r/all top post: `.blue + `${post[0].title}`);
+    r.getHot('all', {limit: config.queryLimit}).then(post => {
+      console.log(`...current r/all top post: `.blue + `${post[0].title.trunc(40)}`);
       let count = 0;
       for (let i in post) {
         count++;
