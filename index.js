@@ -1,6 +1,7 @@
 const dotenv = require('dotenv').config({ path: './credentials/.env' });
 snoowrap = require('snoowrap');
-const r6all = require('./scripts/r6bot.js');
+const r6all = require('./scripts/r6all');
+const database = require('./scripts/store/lowdb')
 
 r = new snoowrap({
   userAgent:    process.env.SW_USER_AGENT,
@@ -12,9 +13,12 @@ r = new snoowrap({
 
 r.config({
   requestDelay: 1000,
-  // debug: false
+  debug: false
 });
+
+
+// console.log(lowdb.isSaved('jou'));
+// console.log(database.isSaved('loleers'));
 r6all.loopAll();
 setInterval(() => {
-  r6all.loopAll();
 }, 60000);
