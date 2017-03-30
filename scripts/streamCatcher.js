@@ -8,7 +8,7 @@ const config = {
     // 'ogn_ow'
   ],
   popup: {
-    targetSubreddit: 'r6moderatorscsstest',
+    targetSubreddit: 'Rainbow6',
     body(channel) {
       return {
         text: `${channel.channelName} is streaming on Twitch!`,
@@ -62,7 +62,7 @@ async function processSidebar(method, context) {
     r.getSubreddit(config.popup.targetSubreddit).getWikiPage('config/sidebar').edit({
       text: popupMd.concat(sideMd)
     }).catch(err => { console.log(err); });
-    config.isLive = true;
+
   } else if (method === 'remove') {
     r.getSubreddit(config.popup.targetSubreddit).getWikiPage('config/sidebar').edit({
       text: sideMd.slice(sideMd.indexOf('>####[](#FEATURED LINKS)'))
@@ -76,8 +76,12 @@ function doTwitch() {
   getTargetStreams().then(body => {
     if (body) {
       processSidebar('add', body);
+      config.isLive = true;
     } else if (!body && config.isLive === true) {
       processSidebar('remove');
+      config.isLive = false;
+    } else {
+      config.isLive = false;
     }
   });
 }
