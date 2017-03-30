@@ -16,9 +16,6 @@ r.config({
   debug: false
 });
 
-
-// console.log(lowdb.isSaved('jou'));
-// console.log(database.isSaved('loleers'));
-r6all.loopAll();
 setInterval(() => {
+  r6all.loopAll();
 }, 60000);

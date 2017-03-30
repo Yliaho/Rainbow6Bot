@@ -7,28 +7,29 @@ db.defaults({
 })
 .write();
 
-function isSaved(Postid) {
+function isSaved(postID) {
   const dbQuery = db.get('submissions').value();
   function queryResults() {
+    let result;
     for (let i in dbQuery) {
-      if (dbQuery[i].id == Postid) {
-        return true;
-      } else if (i > dbQuery.length) {
-        return false;
+      if (dbQuery[i].id == postID) {
+        result = true;
+        break;
       } else {
-        return []; //<-- db is empty if/when this gets returned... probably, right?
+        result = false; 
       }
     }
-
+    return result;
   }  
   return queryResults();  
 }
 
 function saveToDB(post) {
   db.get('submissions')
-  .push(post)
+    .push(post)
     .write();
-  console.log(`...${post.id} saved to database`)
+  
+  console.log(`...${post.id} saved to database`);
 }
 
 module.exports = {
