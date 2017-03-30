@@ -62,12 +62,10 @@ async function processSidebar(method, context) {
     r.getSubreddit(config.popup.targetSubreddit).getWikiPage('config/sidebar').edit({
       text: popupMd.concat(sideMd)
     }).catch(err => { console.log(err); });
-
   } else if (method === 'remove') {
     r.getSubreddit(config.popup.targetSubreddit).getWikiPage('config/sidebar').edit({
       text: sideMd.slice(sideMd.indexOf('>####[](#FEATURED LINKS)'))
     }).catch(err => { console.log(err); });
-    config.isLive = false;
   }
 }
 
