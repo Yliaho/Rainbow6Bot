@@ -1,5 +1,5 @@
 const dotenv = require('dotenv').config({ path: './credentials/.env' });
-snoowrap = require('snoowrap');
+const snoowrap = require('snoowrap');
 const r6all = require('./scripts/r6all');
 const streamCatcher = require('./scripts/streamCatcher');
 // const database = require('./scripts/store/lowdb');
@@ -18,7 +18,8 @@ r.config({
 });
 
 
-setInterval(() => {
   streamCatcher.doTwitch();
-  r6all.loopAll();
-}, 60000 * 5);
+  // r6all.loopAll();
+// setInterval(() => {
+//   streamCatcher.doTwitch();
+// }, 60000 * 5);

@@ -1,22 +1,24 @@
-const twitchApi = require('twitch-api');
 const dotenv = require('dotenv').config({ path: './credentials/.env' });
+const twitchApi = require('twitch-api');
+const snoowrap = require('snoowrap');
 
 const config = {
   targetChannels: [
     'rainbow6',
-    'esl_r6s',
+    // 'esl_r6s',
     // 'ogn_ow'
   ],
   popup: {
-    targetSubreddit: 'Rainbow6',
+    targetSubreddit: 'r6moderatorscsstest',
     body(channel) {
       return {
         text: `${channel.channelName} is streaming on Twitch!`,
         cta: `[watch now](${channel.url})`
       };
-    }
+    },
+    sliceIndex: '>####[](#FEATURED LINKS)'
   },
-  isLive: false
+  isLive: true
 };
 
 const twitch = new twitchApi({
@@ -50,6 +52,15 @@ function getTargetStreams() {
   });
 }
 
+function sliceFromSidebar(target) {
+  if (target.indexOf(config.popup.sliceIndex) != -1) {
+    target.slice(target.indexOf(config.popup.sliceIndex));
+  } else {
+    console.log(`couldn't find target point to slice from sidebar!`);
+    return target;
+  }
+}
+
 async function processSidebar(method, context) {
   const sideMd = await r.getSubreddit(config.popup.targetSubreddit).getWikiPage('config/sidebar').content_md;
   if (method === 'add') {
@@ -64,7 +75,7 @@ async function processSidebar(method, context) {
     }).catch(err => { console.log(err); });
   } else if (method === 'remove') {
     r.getSubreddit(config.popup.targetSubreddit).getWikiPage('config/sidebar').edit({
-      text: sideMd.slice(sideMd.indexOf('>####[](#FEATURED LINKS)'))
+      text: sliceFromSidebar(sideMd)
     }).catch(err => { console.log(err); });
   }
 }
@@ -72,12 +83,16 @@ async function processSidebar(method, context) {
   
 function doTwitch() {
   getTargetStreams().then(body => {
-    if (body) {
+    if (body && config.isLive === false) {
       processSidebar('add', body);
       config.isLive = true;
+      console.log('found stream and added to sidebar. state set to: ' + config.isLive);
     } else if (!body && config.isLive === true) {
       processSidebar('remove');
       config.isLive = false;
+      console.log('no stream found. state set to: ' + config.isLive);
+    } else if (config.isLive === true) {
+      console.log('we are still live. state is still: ' + config.isLive);
     } else {
       config.isLive = false;
     }
@@ -85,5 +100,8 @@ function doTwitch() {
 }
 
 module.exports = {
-  doTwitch
+  doTwitch,
+  config,
+  getTargetStreams,
+  processSidebar
 };

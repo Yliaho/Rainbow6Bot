@@ -1,6 +1,7 @@
 const fs = require('fs');
 const colors = require('colors');
 const database = require('./store/lowdb');
+const snoowrap = require('snoowrap')
 
 const config = {
   targetSubreddit: 'Rainbow6',
