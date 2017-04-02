@@ -43,7 +43,7 @@ module.exports = {
               title: post[i].title,
               is_self: post[i].is_self,
               score: post[i].score,
-              logged: new Date().toString()
+              logged: new Date().toString(),
             });
             processPost(post[i].id);
             discord.msgDiscord(`Saw r/${config.targetSubreddit} post on r/all just now. It has score of ${post[i].score}. Trying to flair & comment.`);            
