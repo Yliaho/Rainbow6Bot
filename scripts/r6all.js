@@ -1,7 +1,9 @@
 const fs = require('fs');
 const colors = require('colors');
 const database = require('./store/lowdb');
-const snoowrap = require('snoowrap')
+const discord = require('./discordWebhook');
+
+
 
 const config = {
   targetSubreddit: 'Rainbow6',
@@ -44,6 +46,7 @@ module.exports = {
               logged: new Date().toString()
             });
             processPost(post[i].id);
+            discord.msgDiscord(`Saw r/${config.targetSubreddit} post on r/all just now. It has score of ${post[i].score}. Trying to flair & comment.`);            
           } else {
             console.log(`...we already got this covered!\n`.yellow);
           }
