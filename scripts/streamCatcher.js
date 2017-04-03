@@ -1,4 +1,6 @@
-const dotenv = require('dotenv').config({ path: './credentials/.env' });
+const dotenv = require('dotenv').config({
+  path: './credentials/.env'
+});
 const twitchApi = require('twitch-api');
 const snoowrap = require('snoowrap');
 const discord = require('./discordWebhook');
@@ -7,7 +9,7 @@ const config = {
   targetChannels: [
     'rainbow6',
     // 'esl_r6s',
-    'nightblue3'
+    'iwilldominate'
   ],
   popup: {
     targetSubreddit: 'r6moderatorscsstest',
@@ -19,7 +21,7 @@ const config = {
     },
     sliceIndex: '>####[](#FEATURED LINKS)'
   },
-  isLive: false
+  isLive: false,
 };
 
 const twitch = new twitchApi({
@@ -34,7 +36,10 @@ function getTargetStreams() {
   return new Promise((resolve, reject) => {
     for (let i = 0; i < config.targetChannels.length; i++) {
       twitch.getChannelStream(config.targetChannels[i], (err, data) => {
-        if (err) {reject(err); return;}
+        if (err) {
+          reject(err);
+          return;
+        }
 
         if (data.stream !== null) {
           resolve({
@@ -42,7 +47,7 @@ function getTargetStreams() {
             url: data.stream.channel.url,
             streaming: {
               game: data.stream.game,
-              status: data.stream.channel.status
+              status: data.stream.channel.status,
             }
           });
         } else if (i === config.targetChannels.length - 1) {
@@ -65,31 +70,35 @@ function sliceFromSidebar(target) {
 async function processSidebar(method, context) {
   const sideMd = await r.getSubreddit(config.popup.targetSubreddit).getWikiPage('config/sidebar').content_md;
   if (method === 'add') {
-    const popupMd = 
-`####[](#popup)  
-  * *${config.popup.body(context).text}*  
-  ${config.popup.body(context).cta}   
-  
-`;
+    const popupMd = [
+      `####[](#popup)  \n`,
+      `* *${config.popup.body(context).text}*  \n`,
+      `${config.popup.body(context).cta}  \n  \n`,
+    ];
+    
+    console.log(popupMd);
     r.getSubreddit(config.popup.targetSubreddit).getWikiPage('config/sidebar').edit({
-      text: popupMd.concat(sideMd)
+        text: popupMd.join(" ").concat(sideMd)
     })
-      .then(discord.msgDiscord(`I updated the sidebar with pop-up.`))  
-      .catch(err => { console.log(err); });
+      .then(discord.msgDiscord(`I updated the sidebar with pop-up.`))
+      .catch(err => {
+        console.log(err);
+      });
   } else if (method === 'remove') {
     r.getSubreddit(config.popup.targetSubreddit).getWikiPage('config/sidebar').edit({
-      text: sliceFromSidebar(sideMd)
+        text: sliceFromSidebar(sideMd)
     })
       .then(result => {
         if (sideMd.indexOf(config.popup.sliceIndex) != -1) {
           discord.msgDiscord(`Removed the pop-up. Until next time! :)`)
         }
-      })  
-      .catch(err => { console.log(err); });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 }
 
-  
 function doTwitch() {
   getTargetStreams().then(body => {
     if (body && config.isLive === false) {

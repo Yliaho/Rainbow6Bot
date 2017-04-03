@@ -21,6 +21,6 @@ r.config({
 
   streamCatcher.doTwitch();
   // r6all.loopAll();
-setInterval(() => {
-  streamCatcher.doTwitch();
-}, 60000 * 5);
+// setInterval(() => {
+//   streamCatcher.doTwitch();
+// }, 60000 * 5);

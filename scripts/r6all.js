@@ -17,10 +17,16 @@ const config = {
 
 function processPost(postID) {
   r.getSubmission(postID)
-    .assignFlair({ text: config.flair.text, cssClass: config.flair.class })
+    .assignFlair({
+      text: config.flair.text,
+      cssClass: config.flair.class
+    })
     .reply(config.messageText).then(comment => {
       r.getComment(comment)
-        .distinguish({ status: true, sticky: true }).then(() => {
+        .distinguish({
+          status: true,
+          sticky: true
+        }).then(() => {
           console.log(`...(${postID}) flair set to .linkflair-${config.flair.class} 
               ...(text: "${config.flair.text}")\n`.green);
         });
@@ -30,7 +36,9 @@ function processPost(postID) {
 module.exports = {
   loopAll: function () {
     console.log(` TARGET `.bgBlue.black + ` r/${config.targetSubreddit}`.blue + `\n`);
-    r.getHot('all', {limit: config.queryLimit}).map(post => post).then(post => {
+    r.getHot('all', {
+      limit: config.queryLimit
+    }).map(post => post).then(post => {
       let count = 0;
       for (let i in post) {
         count++;
@@ -46,7 +54,7 @@ module.exports = {
               logged: new Date().toString(),
             });
             processPost(post[i].id);
-            discord.msgDiscord(`Saw r/${config.targetSubreddit} post on r/all just now. It has score of ${post[i].score}. Trying to flair & comment.`);            
+            discord.msgDiscord(`Saw r/${config.targetSubreddit} post on r/all just now. It has score of ${post[i].score}. Trying to flair & comment.`);
           } else {
             console.log(`...we already got this covered!\n`.yellow);
           }
