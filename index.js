@@ -3,14 +3,14 @@ snoowrap = require('snoowrap'),
   r6all = require('./scripts/r6all'),
   streamCatcher = require('./scripts/streamCatcher'),
 
-// const database = require('./scripts/store/lowdb');
+  // const database = require('./scripts/store/lowdb');
 
 r = new snoowrap({
-  userAgent:    process.env.SW_USER_AGENT,
-  clientId:     process.env.SW_BOT_ID,
+  userAgent: process.env.SW_USER_AGENT,
+  clientId: process.env.SW_BOT_ID,
   clientSecret: process.env.SW_SECRET,
-  username:     process.env.SW_USER,
-  password:     process.env.SW_PASSWORD
+  username: process.env.SW_USER,
+  password: process.env.SW_PASSWORD
 });
 
 r.config({
@@ -18,9 +18,7 @@ r.config({
   debug: false
 });
 
-
+setInterval(() => {
+  r6all.loopAll();
   streamCatcher.doTwitch();
-  // r6all.loopAll();
-// setInterval(() => {
-//   streamCatcher.doTwitch();
-// }, 60000 * 5);
+}, 60000 * 5);

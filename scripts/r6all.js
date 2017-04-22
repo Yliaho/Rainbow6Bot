@@ -3,8 +3,6 @@ const colors = require('colors');
 const database = require('./store/lowdb');
 const discord = require('./discordWebhook');
 
-
-
 const config = {
   targetSubreddit: 'Rainbow6',
   queryLimit: 50,
@@ -15,7 +13,7 @@ const config = {
   }
 };
 
-function processPost(postID) {
+function processPost(postID, permalink) {
   r.getSubmission(postID)
     .assignFlair({
       text: config.flair.text,
@@ -27,8 +25,8 @@ function processPost(postID) {
           status: true,
           sticky: true
         }).then(() => {
-          console.log(`...(${postID}) flair set to .linkflair-${config.flair.class} 
-              ...(text: "${config.flair.text}")\n`.green);
+          console.log(`...(${postID}) flair set to .linkflair-${config.flair.class} \n...(text: "${config.flair.text}")\n`.green);
+          discord.msgDiscord(`Flaired & commented the submission.\nhttps://www.reddit.com${permalink}`);
         });
     });
 }
@@ -53,8 +51,8 @@ module.exports = {
               score: post[i].score,
               logged: new Date().toString(),
             });
-            processPost(post[i].id);
-            discord.msgDiscord(`Saw r/${config.targetSubreddit} post on r/all just now. It has score of ${post[i].score}. Trying to flair & comment.`);
+            processPost(post[i].id, post[i].permalink);
+            discord.msgDiscord(`Saw r/${config.targetSubreddit} post on r/all just now.\n**Title:** ${post[i].title}\n**Score:** ${post[i].score}.`);
           } else {
             console.log(`...we already got this covered!\n`.yellow);
           }

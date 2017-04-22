@@ -9,10 +9,10 @@ const config = {
   targetChannels: [
     'rainbow6',
     // 'esl_r6s',
-    'iwilldominate'
+    // 'iwilldominate'
   ],
   popup: {
-    targetSubreddit: 'r6moderatorscsstest',
+    targetSubreddit: 'Rainbow6',
     body(channel) {
       return {
         text: `${channel.channelName} is streaming on Twitch!`,
@@ -75,19 +75,20 @@ async function processSidebar(method, context) {
       `* *${config.popup.body(context).text}*  \n`,
       `${config.popup.body(context).cta}  \n  \n`,
     ];
-    
+
     console.log(popupMd);
     r.getSubreddit(config.popup.targetSubreddit).getWikiPage('config/sidebar').edit({
         text: popupMd.join(" ").concat(sideMd)
-    })
+      })
       .then(discord.msgDiscord(`I updated the sidebar with pop-up.`))
       .catch(err => {
         console.log(err);
       });
   } else if (method === 'remove') {
-    r.getSubreddit(config.popup.targetSubreddit).getWikiPage('config/sidebar').edit({
+    r.getSubreddit(config.popup.targetSubreddit).getWikiPage('config/sidebar')
+      .edit({
         text: sliceFromSidebar(sideMd)
-    })
+      })
       .then(result => {
         if (sideMd.indexOf(config.popup.sliceIndex) != -1) {
           discord.msgDiscord(`Removed the pop-up. Until next time! :)`)
