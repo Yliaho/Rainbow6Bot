@@ -3,7 +3,8 @@
   <h3>Reddit bot for busy moderators</h3>
   </br>
   </br>
-</div>
+</div>  
+  
 ```  
 npm init or yarn  
 ```  
