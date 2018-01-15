@@ -1,0 +1,39 @@
+{
+  "name": "r6bot-next",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "watch": "node_modules/.bin/babel src -d lib --watch",
+    "build": "node_modules/.bin/babel src -d lib",
+    "dev": "node lib",
+    "deploy": "pm2 deploy ecosystem.config.js production"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.13.1",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "nodemon": "^1.14.1",
+    "prettier": "^1.9.2"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "chalk": "^2.3.0",
+    "co": "^4.6.0",
+    "discord.js": "^11.2.1",
+    "dotenv": "^4.0.0",
+    "lodash": "^4.17.4",
+    "lowdb": "^1.0.0",
+    "luxon": "^0.2.11",
+    "snoowrap": "^1.15.1"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "devMode": false,
+  "targetSub": "politics",
+  "devSub": "Rainbow6css",
+  "discordNotifications": true,
+  "rAllWatcher": {
+    "treshold": 33,
+    "messageText": "Testing",
+    "flair": {
+      "class": "rAll",
+      "text": "r/all"
+    }
+  },
+  "streamCatcher": {
+    "watchUser": "rainbow6"
+  },
+  "reportWatcher": {
+    "reportTreshold": 1
+  }
+}
